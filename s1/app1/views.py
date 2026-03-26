@@ -291,7 +291,7 @@ def view_students(request):
 #ASSSIGN SECTION
 
 @login_required
-def gassign_student_section(request):
+def assign_student_section(request):
     students = Student.objects.all()
     sections = Section.objects.all()
 
