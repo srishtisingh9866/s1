@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teacher Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #eaa0c0;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    margin: 15px 0;
+    color: white;
+    text-decoration: none;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    padding: 30px;
+    background: #b1c0fa;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Teacher Panel</h2>
+
+    <a href="{% url 'teacher_sections' %}">Sections</a>
+    <a href="{% url 'teacher_sections' %}">Attendance</a>
+    <a href="% url 'mark_assignments' %">Assignments</a>
+    <a href="#">Courses</a>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" style="width:100%; padding:10px; margin-top:10px;">
+            Logout
+        </button>
+    </form>
+</div>
+<!-- MAIN CONTENT -->
+<div class="main">
+
+    <h1>Welcome {{ request.user.username }}</h1>
+
+    <a href="{% url 'teacher_sections' %}">
+    <div class="card">
+
+        <h3>Sections</h3>
+        <p>View your allocated sections</p>
+        
+    </div>
+    </a>
+    
+    <div class="card">
+        <h3>Attendance</h3>
+        <p>Mark student attendance</p>
+    </div>
+    
+
+    <div class="card">
+        <h3>Assignments</h3>
+        <p>Manage assignments</p>
+    </div>
+    
+</div>
+
+</body>
+</html>

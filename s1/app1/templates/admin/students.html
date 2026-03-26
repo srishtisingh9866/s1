@@ -1,0 +1,10 @@
+<h2>
+    Students
+</h2>
+<ul>
+    {% for s in students %}
+        <li>
+            {{s.username} - {{s.display_id}}}=Section: {{s.section_name}}
+        </li>
+        {% endfor %}
+</ul>

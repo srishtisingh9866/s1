@@ -1,0 +1,19 @@
+<h2>Assign Student to Section</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <select name="student">
+        {% for s in students %}
+            <option value="{{ s.user.id }}">{{ s.user.username }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="section">
+        {% for sec in sections %}
+            <option value="{{ sec.id }}">{{ sec.name }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Assign</button>
+</form>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Assignment</title>
+</head>
+
+<body>
+
+<h2>Create Assignment - Section {{ section.name }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="title" placeholder="Title" required><br><br>
+
+    <textarea name="description" placeholder="Description" required></textarea><br><br>
+
+    <button type="submit">Create</button>
+
+</form>
+
+</body>
+</html>

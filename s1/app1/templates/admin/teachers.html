@@ -1,0 +1,7 @@
+<h2>Teachers</h2>
+
+<ul>
+    {% for t in teachers %}
+        <li>{{ t.user.username}} - {{t.display_id}}</li>
+        {% endfor %}
+</ul>

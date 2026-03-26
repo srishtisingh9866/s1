@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Students</title>
+
+<style>
+body {
+    font-family: Poppins;
+    background: #f5f6fa;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Students in {{ section.name }}</h2>
+
+{% for student in students %}
+    <div class="card">
+        <a href="{% url 'student_detail' student.user.id %}">
+            {{ student.user.username }}
+        </a>
+    </div>
+{% endfor %}
+
+</body>
+</html>

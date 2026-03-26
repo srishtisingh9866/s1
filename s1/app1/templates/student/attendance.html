@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Attendance</title>
+</head>
+
+<body>
+
+<h2>My Attendance</h2>
+
+<ul>
+    {% for record in records %}
+        <li>
+            {{ record.date }} - {{ record.status }}
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

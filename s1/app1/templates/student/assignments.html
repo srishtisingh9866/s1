@@ -1,0 +1,10 @@
+<h2>My Assignments</h2>
+
+{% for a in assignments %}
+    <div>
+        <h3>{{ a.title }}</h3>
+        <p>{{ a.description }}</p>
+
+        <a href="{% url 'submit_assignment' a.id %}">Submit</a>
+    </div>
+{% endfor %}

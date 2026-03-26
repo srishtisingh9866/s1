@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sections</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f6fa;
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* GRID */
+.container {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.03);
+    background: #f1f2ff;
+}
+
+/* BUTTON GROUP */
+.btn-group {
+    margin-top: 15px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 14px;
+    background: #6c5ce7;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #4834d4;
+}
+
+/* EMPTY MESSAGE */
+.empty {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+    color: #777;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h2>Your Sections</h2>
+</div>
+
+<div class="container">
+
+    {% if sections %}
+        {% for section in sections %}
+            <div class="card">
+                <h3>Section {{ section.name }}</h3>
+
+                <div class="btn-group">
+                    <a href="{% url 'section_students' section.id %}" class="btn">
+                        👨‍🎓 Students
+                    </a>
+
+                    <a href="{% url 'mark_attendance' section.id %}" class="btn">
+                        📅 Attendance
+                    </a>
+
+                    <a href="{% url 'create_assignment' section.id %}" class="btn">
+                        📝 Assignment
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">
+            No sections assigned yet 😢
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

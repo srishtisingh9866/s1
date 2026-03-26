@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Detail</title>
+
+<style>
+body {
+    font-family: Poppins;
+    background: #f5f6fa;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+/* TITLE */
+h2 {
+    margin-bottom: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Student Profile</h2>
+
+<div class="card">
+    <h3>{{ student.user.username }}</h3>
+    <p><b>Student ID:</b> {{ student.display_id }}</p>
+    <p><b>Section:</b> {{ student.section.name }}</p>
+    <p><b>Email:</b> {{ student.user.email }}</p>
+</div>
+
+<div class="card">
+    <h3>Attendance</h3>
+    <p>Present: 20</p>
+    <p>Absent: 5</p>
+</div>
+
+<div class="card">
+    <h3>Assignments</h3>
+    <p>Completed: 8</p>
+    <p>Pending: 2</p>
+</div>
+
+<div class="card">
+    <h3>Marks</h3>
+    <p>Math: 85</p>
+    <p>Science: 90</p>
+</div>
+
+</body>
+</html>
