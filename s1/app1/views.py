@@ -121,7 +121,14 @@ def create_section(request):
         name = request.POST.get('name')
         teacher_id = request.POST.get('teacher')
 
-        teacher = Teacher.objects.get(id=teacher_id)
+        if not teacher_id:
+            return render(request, 'admin/create_section.html', {
+                'error': 'Please select a teacher',
+                'teachers': Teacher.objects.all(),
+                'sections': Section.objects.all()
+            })
+
+        teacher = Teacher.objects.get(user_id=teacher_id)
 
         Section.objects.create(name=name, teacher=teacher)
 
@@ -134,8 +141,6 @@ def create_section(request):
         'teachers': teachers,
         'sections': sections
     })
-
-
 #SHOW STUDENT DETAILS
 @login_required
 def student_detail(request, student_id):
@@ -339,7 +344,7 @@ def assign_teacher_section(request):
 
         return redirect('assign_teacher_section')
 
-    return render(request, 'admin/assign_teacher.html', {
+    return render(request, 'admin/assign-teacher.html', {
         'teachers': teachers,
         'sections': sections
     })

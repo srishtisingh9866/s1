@@ -10,13 +10,12 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     #admin urls
-    
+    path('dashboard/admin/teachers/', view_teachers, name='view_teachers'),
+    path('dashboard/admin/students/', view_students, name='view_students'),
+    path('dashboard/admin/assign-teacher/', assign_teacher_section, name='assign_teacher_section'),
     path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
-    path('admin/create-section/', create_section, name='create_section'),
-    path('admin/teachers/', view_teachers, name='view_teachers'),
-    path('admin/students/', view_students, name='view_students'),
-    path('admin/assign-student/', assign_student_section, name='assign_student_section'),
-    path('admin/assign-teacher/', assign_teacher_section, name='assign_teacher_section'),
+    path('dashboard/admin/create-section/', create_section, name='create_section'),
+    path('dashboard/admin/assign-student/', assign_student_section, name='assign_student_section'),
     #teacher urls
     path('teacher/', teacher_dashboard, name='teacher_dashboard'),
     path('sections/', teacher_sections, name='teacher_sections'),

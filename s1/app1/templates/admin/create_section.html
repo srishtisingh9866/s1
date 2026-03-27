@@ -36,9 +36,10 @@ button {
     <br>
 
     <select name="teacher" required>
-        <option value="">Select Teacher</option>
+        <option value="" disabled selected>Select Teacher</option>
+
         {% for teacher in teachers %}
-            <option value="{{ teacher.id }}">
+            <option value="{{ teacher.user.id }}">
                 {{ teacher.user.username }}
             </option>
         {% endfor %}
