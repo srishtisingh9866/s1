@@ -1,12 +1,43 @@
-<h2>Teachers</h2>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher List</title>
+    <style>
+        body{
+            background-color: blanchedalmond;
+        }
+       
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+            .card {
+                background: rgb(46, 41, 41);
+                color: #ffffff;
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                }
+   </style>
+</head>
+<body>
+    <h2>Teachers</h2>
+    
+    <div class="main">
 <form method="GET">
     <input type="text" name="q" placeholder="Search teacher...">
     <button type="submit">Search</button>
 </form>
-
-<ul>
+</div>
+<div class="Sidebar">
+<ul >
     {% for t in teachers %}
-        <li>{{ t.user.username }} - {{ t.display_id }}</li>
+        <li class="card">{{ t.user.username }} - {{ t.display_id }}</li>
     {% endfor %}
 </ul>
+</div>
+
+</body>
+</html>

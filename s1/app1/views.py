@@ -348,4 +348,57 @@ def assign_teacher_section(request):
         'teachers': teachers,
         'sections': sections
     })
+# EDIT SECTION
+@login_required
+def edit_section(request, section_id):
+    section = Section.objects.get(id=section_id)
+    teachers = Teacher.objects.all()
 
+    if request.method == "POST":
+        section.name = request.POST.get('name')
+
+        teacher_id = request.POST.get('teacher')
+        teacher = Teacher.objects.get(user_id=teacher_id)
+
+        section.teacher = teacher
+        section.save()
+
+        return redirect('create_section')
+
+    return render(request, 'admin/edit_section.html', {
+        'section': section,
+        'teachers': teachers
+    })
+
+
+
+
+#DELETE SECTION
+@login_required
+def delete_section(request, section_id):
+    section = Section.objects.get(id=section_id)
+    section.delete()
+    return redirect('create_section')
+
+#ASSIGN STUDENT SECTION 
+@login_required
+def assign_student_section(request):
+    students = Student.objects.all()
+    sections = Section.objects.all()
+
+    if request.method == "POST":
+        student_id = request.POST.get('student')
+        section_id = request.POST.get('section')
+
+        student = Student.objects.get(user_id=student_id)
+        section = Section.objects.get(id=section_id)
+
+        student.section = section
+        student.save()
+
+        return redirect('assign_student_section')
+
+    return render(request, 'admin/assign_student.html', {
+        'students': students,
+        'sections': sections
+    })

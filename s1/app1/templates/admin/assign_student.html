@@ -5,13 +5,17 @@
 
     <select name="student">
         {% for s in students %}
-            <option value="{{ s.user.id }}">{{ s.user.username }}</option>
+            <option value="{{ s.user.id }}">
+                {{ s.user.username }}
+            </option>
         {% endfor %}
     </select>
 
     <select name="section">
         {% for sec in sections %}
-            <option value="{{ sec.id }}">{{ sec.name }}</option>
+            <option value="{{ sec.id }}">
+                {{ sec.name }}
+            </option>
         {% endfor %}
     </select>
 

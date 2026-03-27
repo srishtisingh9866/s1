@@ -2,7 +2,7 @@ from django.urls import path
 from .views import auth_page, register_user, login_user, teacher_dashboard,student_dashboard,admin_dashboard, teacher_sections,section_students, logout_user
 from .views import create_section, student_detail,mark_attendance, student_attendance
 from .views import create_assignment, student_assignments, submit_assignment
-from .views import view_teachers, view_students, assign_student_section, assign_teacher_section
+from .views import view_teachers, view_students, assign_student_section, assign_teacher_section, edit_section, delete_section
 urlpatterns = [
     #common urls
     path('', auth_page, name='auth_page'),
@@ -15,6 +15,8 @@ urlpatterns = [
     path('dashboard/admin/assign-teacher/', assign_teacher_section, name='assign_teacher_section'),
     path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
     path('dashboard/admin/create-section/', create_section, name='create_section'),
+    path('dashboard/admin/edit-section/<int:section_id>/', edit_section, name='edit_section'),
+    path('dashboard/admin/delete-section/<int:section_id>/', delete_section, name='delete_section'),
     path('dashboard/admin/assign-student/', assign_student_section, name='assign_student_section'),
     #teacher urls
     path('teacher/', teacher_dashboard, name='teacher_dashboard'),
