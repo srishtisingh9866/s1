@@ -272,7 +272,12 @@ def view_submissions(request, assignment_id):
 # VIEW TEACHERS
 @login_required
 def view_teachers(request):
-    teachers = Teacher.objects.all()
+    query = request.GET.get('q')
+
+    if query:
+        teachers = Teacher.objects.filter(user__username__icontains=query)
+    else:
+        teachers = Teacher.objects.all()
 
     return render(request, 'admin/teachers.html', {
         'teachers': teachers
@@ -282,12 +287,16 @@ def view_teachers(request):
 
 @login_required
 def view_students(request):
-    students = Student.objects.all()
+    query = request.GET.get('q')
+
+    if query:
+        students = Student.objects.filter(user__username__icontains=query)
+    else:
+        students = Student.objects.all()
 
     return render(request, 'admin/students.html', {
         'students': students
     })
-
 #ASSSIGN SECTION
 
 @login_required
@@ -311,3 +320,27 @@ def assign_student_section(request):
         'students': students,
         'sections': sections
     })
+
+#ASSIGN TEACHER SECTION
+@login_required
+def assign_teacher_section(request):
+    teachers = Teacher.objects.all()
+    sections = Section.objects.all()
+
+    if request.method == "POST":
+        teacher_id = request.POST.get('teacher')
+        section_id = request.POST.get('section')
+
+        teacher = Teacher.objects.get(user_id=teacher_id)
+        section = Section.objects.get(id=section_id)
+
+        section.teacher = teacher
+        section.save()
+
+        return redirect('assign_teacher_section')
+
+    return render(request, 'admin/assign_teacher.html', {
+        'teachers': teachers,
+        'sections': sections
+    })
+

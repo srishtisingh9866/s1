@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Assign Teacher</title>
+</head>
+
+<body>
+
+<h2>Assign Teacher to Section</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <select name="teacher" required>
+        {% for t in teachers %}
+            <option value="{{ t.user.id }}">
+                {{ t.user.username }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <select name="section" required>
+        {% for s in sections %}
+            <option value="{{ s.id }}">
+                Section {{ s.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Assign</button>
+
+</form>
+
+</body>
+</html>

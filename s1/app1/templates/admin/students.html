@@ -1,10 +1,14 @@
-<h2>
-    Students
-</h2>
+<h2>Students</h2>
+
+<form method="GET">
+    <input type="text" name="q" placeholder="Search student...">
+    <button type="submit">Search</button>
+</form>
+
 <ul>
     {% for s in students %}
         <li>
-            {{s.username} - {{s.display_id}}}=Section: {{s.section_name}}
+            {{ s.user.username }} - {{ s.display_id }} - Section: {{ s.section.name }}
         </li>
-        {% endfor %}
+    {% endfor %}
 </ul>

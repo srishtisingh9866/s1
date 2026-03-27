@@ -50,7 +50,7 @@ body {
     <a href="{% url 'view_teachers' %}">Teachers</a>
     <a href="{% url 'view_students' %}">Students</a>
     <a href="{% url 'create_section' %}">Sections</a>
-
+    <a href="{% url 'assign_teacher_section' %}">Assign Teacher</a>
     <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit">Logout</button>
