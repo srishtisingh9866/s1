@@ -1,49 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Mark Attendance</title>
-
-<style>
-body {
-    font-family: Arial;
-    padding: 20px;
-    background: #f5f6fa;
-}
-
-.card {
-    background: white;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-}
-</style>
-
-</head>
-
-<body>
-
-<h2>Mark Attendance - Section {{ section.name }}</h2>
-
 <form method="POST">
     {% csrf_token %}
 
+    <input type="text" name="subject" placeholder="Subject" required>
+
     {% for student in students %}
-        <div class="card">
-            <b>{{ student.user.username }}</b><br>
+        <p>{{ student.user.username }}</p>
 
-            <label>
-                <input type="radio" name="{{ student.user.id }}" value="present" required> Present
-            </label>
+        <label>
+            <input type="radio" name="student_{{ student.user.id }}" value="present" required>
+            Present
+        </label>
 
-            <label>
-                <input type="radio" name="{{ student.user.id }}" value="absent"> Absent
-            </label>
-        </div>
+        <label>
+            <input type="radio" name="student_{{ student.user.id }}" value="absent">
+            Absent
+        </label>
     {% endfor %}
 
-    <button type="submit">Submit Attendance</button>
-
+    <button type="submit">Submit</button>
 </form>
-
-</body>
-</html>

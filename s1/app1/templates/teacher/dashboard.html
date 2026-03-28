@@ -12,9 +12,9 @@ body {
 
 /* SIDEBAR */
 .sidebar {
-    width: 220px;
+    width: 230px;
     height: 100vh;
-    background: #eaa0c0;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     color: white;
     padding: 20px;
 }
@@ -28,20 +28,41 @@ body {
     margin: 15px 0;
     color: white;
     text-decoration: none;
+    font-weight: bold;
+}
+
+/* LOGOUT BUTTON */
+.sidebar form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #ff4757;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 /* MAIN */
 .main {
     flex: 1;
     padding: 30px;
-    background: #b1c0fa;
+    background: #f5f6fa;
 }
 
+/* CARDS */
 .card {
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-bottom: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 </style>
 
@@ -53,43 +74,55 @@ body {
 <div class="sidebar">
     <h2>Teacher Panel</h2>
 
-    <a href="{% url 'teacher_sections' %}">Sections</a>
-    <a href="{% url 'teacher_sections' %}">Attendance</a>
-    <a href="% url 'mark_assignments' %">Assignments</a>
-    <a href="#">Courses</a>
+    <a href="{% url 'teacher_sections' %}">📚 Sections</a>
+    <a href="{% url 'attendance_sections' %}">📝 Attendance</a>
+    <a href="#">📂 Assignments</a>
+    <a href="{% url 'teacher_timetable' %}">⏰ Timetable</a>
+    <a href="#">📖 Courses</a>
 
+    <!-- ✅ LOGOUT -->
     <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button type="submit" style="width:100%; padding:10px; margin-top:10px;">
-            Logout
-        </button>
+        <button type="submit">Logout</button>
     </form>
 </div>
+
 <!-- MAIN CONTENT -->
 <div class="main">
 
-    <h1>Welcome {{ request.user.username }}</h1>
+    <h1>Welcome {{ request.user.username }} 👋</h1>
 
+    <!-- SECTIONS -->
     <a href="{% url 'teacher_sections' %}">
-    <div class="card">
-
-        <h3>Sections</h3>
-        <p>View your allocated sections</p>
-        
-    </div>
+        <div class="card">
+            <h3>📚 Sections</h3>
+            <p>View your assigned sections</p>
+        </div>
     </a>
-    
-    <div class="card">
-        <h3>Attendance</h3>
-        <p>Mark student attendance</p>
-    </div>
-    
 
+    <!-- ATTENDANCE -->
+    <a href="{% url 'attendance_sections' %}">
+
+        <div class="card">
+            <h3>📝 Attendance</h3>
+            <p>Mark student attendance</p>
+        </div>
+    </a>
+
+    <!-- ASSIGNMENTS -->
     <div class="card">
-        <h3>Assignments</h3>
-        <p>Manage assignments</p>
+        <h3>📂 Assignments</h3>
+        <p>Create and manage assignments</p>
     </div>
-    
+
+    <!-- TIMETABLE -->
+    <a href="{% url 'teacher_timetable' %}">
+        <div class="card">
+            <h3>⏰ Timetable</h3>
+            <p>View your schedule</p>
+        </div>
+    </a>
+
 </div>
 
 </body>

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from .models import Student, Teacher, Section, Attendance, Assignment , Submission, Timetable
 from django.contrib.auth.decorators import login_required
 from datetime import date
+from django.utils import timezone
 User = get_user_model()
 
 
@@ -159,30 +160,31 @@ def student_detail(request, student_id):
 # TEACHER MARK ATTENDANCE
 @login_required
 def mark_attendance(request, section_id):
-    teacher = Teacher.objects.get(user=request.user)
-
-    section = Section.objects.get(id=section_id, teacher=teacher)
+    section = Section.objects.get(id=section_id)
     students = Student.objects.filter(section=section)
 
     if request.method == "POST":
+        subject = request.POST.get('subject')
+
         for student in students:
-            status = request.POST.get(str(student.user.id))
+            status = request.POST.get(f'student_{student.user.id}')
 
             Attendance.objects.update_or_create(
                 student=student,
-                section=section,
-                date=date.today(),
-                defaults={'status': status}
+                date=timezone.now().date(),
+                subject=subject,
+                defaults={
+                    'section': section,
+                    'status': status
+                }
             )
 
-        return redirect('teacher_sections')
+        return redirect('teacher_dashboard')
 
     return render(request, 'teacher/mark_attendance.html', {
         'section': section,
         'students': students
     })
-
-
 # STUDENT VIEW ATTENDANCE
 @login_required
 def student_attendance(request):
@@ -459,4 +461,14 @@ def teacher_timetable(request):
 
     return render(request, 'teacher/timetable.html', {
         'timetable': timetable
+    })
+
+
+@login_required
+def attendance_sections(request):
+    teacher = Teacher.objects.get(user=request.user)
+    sections = Section.objects.filter(teacher=teacher)
+
+    return render(request, 'teacher/attendance_sections.html', {
+        'sections': sections
     })

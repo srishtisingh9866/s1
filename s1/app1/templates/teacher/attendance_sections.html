@@ -1,0 +1,11 @@
+<h2>Select Section</h2>
+
+{% for section in sections %}
+    <div>
+        <h3>Section {{ section.name }}</h3>
+
+        <a href="{% url 'mark_attendance' section.id %}">
+            Mark Attendance
+        </a>
+    </div>
+{% endfor %}

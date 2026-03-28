@@ -64,9 +64,13 @@ class Student(models.Model):
     
 #ATTENDANCE
 
+
 class Attendance(models.Model):
     student = models.ForeignKey('Student', on_delete=models.CASCADE)
     section = models.ForeignKey('Section', on_delete=models.CASCADE)
+
+    subject = models.CharField(max_length=100, null=True, blank=True)
+
     date = models.DateField(default=timezone.now)
 
     STATUS_CHOICES = (
@@ -76,9 +80,11 @@ class Attendance(models.Model):
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
+    class Meta:
+        unique_together = ('student', 'date', 'subject')
+
     def __str__(self):
-        return f"{self.student.user.username} - {self.date} - {self.status}"
-    
+        return f"{self.student.user.username} - {self.subject} - {self.date} - {self.status}"    
 #ASSIGNMENT
 class Assignment(models.Model):
     title = models.CharField(max_length=200)

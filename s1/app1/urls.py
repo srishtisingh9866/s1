@@ -3,11 +3,12 @@ from .views import auth_page, register_user, login_user, teacher_dashboard,stude
 from .views import create_section, student_detail,mark_attendance, student_attendance
 from .views import create_assignment, student_assignments, submit_assignment, create_timetable, student_timetable, teacher_timetable
 from .views import view_teachers, view_students, assign_student_section, assign_teacher_section, edit_section, delete_section
+from .views import attendance_sections
 urlpatterns = [
     #common urls
     path('', auth_page, name='auth_page'),
-    path('register/', register_user, name='register'),
-    path('login/', login_user, name='login'),
+    path('login/', login_user, name='login_user'),
+    path('register/', register_user, name='register_user'),
     path('logout/', logout_user, name='logout'),
     #admin urls
     path('dashboard/admin/teachers/', view_teachers, name='view_teachers'),
@@ -26,6 +27,7 @@ urlpatterns = [
     path('teacher/', teacher_dashboard, name='teacher_dashboard'),
     path('sections/', teacher_sections, name='teacher_sections'),
     path('attendance/<int:section_id>/', mark_attendance, name='mark_attendance'),
+    path('teacher/attendance/', attendance_sections, name='attendance_sections'),
     path('assignment/create/<int:section_id>/', create_assignment, name='create_assignment'),
     path('teacher/timetable/', teacher_timetable, name='teacher_timetable'),
 
