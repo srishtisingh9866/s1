@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
-from .models import Student, Teacher, Section, Attendance, Assignment , Submission
+from .models import Student, Teacher, Section, Attendance, Assignment , Submission, Timetable
 from django.contrib.auth.decorators import login_required
 from datetime import date
 User = get_user_model()
@@ -401,4 +401,62 @@ def assign_student_section(request):
     return render(request, 'admin/assign_student.html', {
         'students': students,
         'sections': sections
+    })
+
+# ADMIN CREATE TIMETABLE
+@login_required
+def create_timetable(request):
+    sections = Section.objects.all()
+    teachers = Teacher.objects.all()
+
+    if request.method == "POST":
+        section_id = request.POST.get('section')
+        teacher_id = request.POST.get('teacher')
+        subject = request.POST.get('subject')
+        day = request.POST.get('day')
+        start = request.POST.get('start_time')
+        end = request.POST.get('end_time')
+
+        section = Section.objects.get(id=section_id)
+        teacher = Teacher.objects.get(user_id=teacher_id)
+
+        Timetable.objects.create(
+            section=section,
+            teacher=teacher,
+            subject=subject,
+            day=day,
+            start_time=start,
+            end_time=end
+        )
+
+        return redirect('create_timetable')
+
+    timetables = Timetable.objects.all()
+
+    return render(request, 'admin/timetable.html', {
+        'sections': sections,
+        'teachers': teachers,
+        'timetables': timetables
+    })
+
+#STUDENT TIMETABLE
+@login_required
+def student_timetable(request):
+    student = Student.objects.get(user=request.user)
+
+    timetable = Timetable.objects.filter(section=student.section)
+
+    return render(request, 'student/timetable.html', {
+        'timetable': timetable
+    })
+
+#TEACHER TIMETABLE VIEW
+@login_required
+def teacher_timetable(request):
+    teacher = Teacher.objects.get(user=request.user)
+
+    timetable = Timetable.objects.filter(teacher=teacher)
+
+    return render(request, 'teacher/timetable.html', {
+        'timetable': timetable
     })

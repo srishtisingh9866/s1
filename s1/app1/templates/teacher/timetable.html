@@ -1,0 +1,12 @@
+<h2>My Timetable</h2>
+
+<ul>
+    {% for t in timetable %}
+        <li>
+            Section {{ t.section.name }} |
+            {{ t.day }} |
+            {{ t.subject }} |
+            {{ t.start_time }} - {{ t.end_time }}
+        </li>
+    {% endfor %}
+</ul>

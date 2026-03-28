@@ -1,0 +1,46 @@
+<h2>Create Timetable</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <select name="section" required>
+        {% for s in sections %}
+            <option value="{{ s.id }}">Section {{ s.name }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="teacher" required>
+        {% for t in teachers %}
+            <option value="{{ t.user.id }}">{{ t.user.username }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="subject" placeholder="Subject" required>
+
+    <select name="day">
+        <option value="Mon">Monday</option>
+        <option value="Tue">Tuesday</option>
+        <option value="Wed">Wednesday</option>
+        <option value="Thu">Thursday</option>
+        <option value="Fri">Friday</option>
+    </select>
+
+    <input type="time" name="start_time">
+    <input type="time" name="end_time">
+
+    <button type="submit">Add</button>
+</form>
+
+<hr>
+
+<h2>All Timetable</h2>
+
+<ul>
+    {% for t in timetables %}
+        <li>
+            {{ t.section.name }} | {{ t.subject }} | {{ t.day }} |
+            {{ t.start_time }} - {{ t.end_time }} |
+            {{ t.teacher.user.username }}
+        </li>
+    {% endfor %}
+</ul>

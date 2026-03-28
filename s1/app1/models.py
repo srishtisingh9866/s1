@@ -101,3 +101,26 @@ class Submission(models.Model):
 
     def __str__(self):
         return f"{self.student.user.username} - {self.assignment.title}"
+    
+
+#TIMETABLE
+class Timetable(models.Model):
+    DAY_CHOICES = [
+        ('Mon', 'Monday'),
+        ('Tue', 'Tuesday'),
+        ('Wed', 'Wednesday'),
+        ('Thu', 'Thursday'),
+        ('Fri', 'Friday'),
+    ]
+
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+
+    subject = models.CharField(max_length=100)
+    day = models.CharField(max_length=10, choices=DAY_CHOICES)
+
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.section.name} - {self.subject} - {self.day}"

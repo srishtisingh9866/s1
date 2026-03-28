@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import auth_page, register_user, login_user, teacher_dashboard,student_dashboard,admin_dashboard, teacher_sections,section_students, logout_user
 from .views import create_section, student_detail,mark_attendance, student_attendance
-from .views import create_assignment, student_assignments, submit_assignment
+from .views import create_assignment, student_assignments, submit_assignment, create_timetable, student_timetable, teacher_timetable
 from .views import view_teachers, view_students, assign_student_section, assign_teacher_section, edit_section, delete_section
 urlpatterns = [
     #common urls
@@ -18,18 +18,25 @@ urlpatterns = [
     path('dashboard/admin/edit-section/<int:section_id>/', edit_section, name='edit_section'),
     path('dashboard/admin/delete-section/<int:section_id>/', delete_section, name='delete_section'),
     path('dashboard/admin/assign-student/', assign_student_section, name='assign_student_section'),
+    path('dashboard/admin/timetable/', create_timetable, name='create_timetable'),
+    
+
+
     #teacher urls
     path('teacher/', teacher_dashboard, name='teacher_dashboard'),
     path('sections/', teacher_sections, name='teacher_sections'),
     path('attendance/<int:section_id>/', mark_attendance, name='mark_attendance'),
     path('assignment/create/<int:section_id>/', create_assignment, name='create_assignment'),
+    path('teacher/timetable/', teacher_timetable, name='teacher_timetable'),
 
-    #student urls
     
+    
+    #student urls
     path('student/', student_dashboard, name='student_dashboard'),
     path('sections/<int:section_id>/', section_students, name='section_students'),
     path('student/<uuid:student_id>/', student_detail, name='student_detail'),
     path('my-attendance/', student_attendance, name='student_attendance'),
     path('my-assignments/', student_assignments, name='student_assignments'),
     path('submit/<int:assignment_id>/', submit_assignment, name='submit_assignment'),
+    path('student/timetable/', student_timetable, name='student_timetable'),
 ]
